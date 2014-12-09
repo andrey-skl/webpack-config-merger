@@ -1,34 +1,24 @@
 var _ = require('lodash');
 var path = require("path");
 
-var mergeConfigFunction = function(grunt) {
-
-  function mergeFunction(a, b) {
-    if(_.isArray(a) && _.isArray(b)) {
-      return a.concat(b);
-    }
-    if(_.isArray(a) && !_.isArray(b)) {
-      return a.map(function(item) {
-        return _.merge({}, {x:item}, {x:b}, mergeFunction).x;
-      });
-    }
-    if(_.isArray(b) && !_.isArray(a)) {
-      return b.map(function(item) {
-        return _.merge({}, {x:a}, {x:item}, mergeFunction).x;
-      });
-    }
+var mergeFunction = function(a, b) {
+  if(_.isArray(a) && _.isArray(b)) {
+    return a.concat(b);
   }
-  
-  return mergeFunction;
-
+  if(_.isArray(a) && !_.isArray(b)) {
+    return a.map(function(item) {
+      return _.merge({}, {x:item}, {x:b}, mergeFunction).x;
+    });
+  }
+  if(_.isArray(b) && !_.isArray(a)) {
+    return b.map(function(item) {
+      return _.merge({}, {x:a}, {x:item}, mergeFunction).x;
+    });
+  }
 };
 
 
 var mergeWebpackConfig = function(configToOverride, config) {
-  var _ = require('grunt-webpack/node_modules/lodash');
-  var mergeWebpackConfigFn = require('grunt-webpack/lib/mergeFunction')(grunt);
-  var path = require("path");
-
   var options = _.merge(
     {x: {
       context: ".",
@@ -41,7 +31,7 @@ var mergeWebpackConfig = function(configToOverride, config) {
     }},
     {x: configToOverride},
     {x: config},
-    mergeWebpackConfigFn
+    mergeFunction
   ).x;
 
   [].concat(options).forEach(function(options) {
