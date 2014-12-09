@@ -1,7 +1,7 @@
 webpack-config-merger
 =====================
 
-A simple module for merging webpack configs. Inspired by `grunt-webpack`.
+A simple module for merge webpack configs. Inspired by the [grunt-webpack](https://github.com/webpack/grunt-webpack).
 
 Usage:
 
