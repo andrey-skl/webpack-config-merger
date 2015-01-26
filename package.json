@@ -20,5 +20,11 @@
       "type": "MIT",
       "url": "https://github.com/huston007/webpack-config-merger/blob/master/LICENSE-MIT"
     }
-  ]
+  ],
+  "devDependencies": {
+    "jasmine": "^2.1.1"
+  },
+  "scripts": {
+    "test": "jasmine"
+  }
 }
