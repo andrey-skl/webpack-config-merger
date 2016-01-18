@@ -1,18 +1,19 @@
-var _ = require('lodash');
-var path = require("path");
+var mergeWith = require('lodash/mergeWith');
+
+var path = require('path');
 
 var mergeFunction = function(a, b) {
-  if(_.isArray(a) && _.isArray(b)) {
+  if(Array.isArray(a) && Array.isArray(b)) {
     return a.concat(b);
   }
-  if(_.isArray(a) && !_.isArray(b)) {
+  if(Array.isArray(a) && !Array.isArray(b)) {
     return a.map(function(item) {
-      return _.merge({}, {x:item}, {x:b}, mergeFunction).x;
+      return mergeWith({}, {x:item}, {x:b}, mergeFunction).x;
     });
   }
-  if(_.isArray(b) && !_.isArray(a)) {
+  if(Array.isArray(b) && !Array.isArray(a)) {
     return b.map(function(item) {
-      return _.merge({}, {x:a}, {x:item}, mergeFunction).x;
+      return mergeWith({}, {x:a}, {x:item}, mergeFunction).x;
     });
   }
 };
@@ -50,9 +51,7 @@ var mergeWebpackConfig = function() {
    * Add merge function to the end of the configs
    * list
    */
-  mergeConfigsList.push(mergeFunction);
-
-  var options = _.merge.apply(_, mergeConfigsList).x;
+  var options = mergeWith.apply(null, mergeConfigsList.concat(mergeFunction)).x;
 
   [].concat(options).forEach(function(options) {
     options.context = path.resolve(process.cwd(), options.context);

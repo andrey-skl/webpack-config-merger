@@ -4,7 +4,7 @@
     "name": "Andrey Skladchikov",
     "email": "andrey.skladchikov@gmail.com"
   },
-  "version": "0.0.3",
+  "version": "0.0.4",
   "main": "src/merger",
   "description": "A simple module for merging webpack configs. Inspired by grunt-webpack.",
   "homepage": "https://github.com/huston007/webpack-config-merger",
@@ -13,7 +13,7 @@
     "url": "git@github.com:huston007/webpack-config-merger"
   },
   "dependencies": {
-    "lodash": "~1.2.0"
+    "lodash": "4.0.0"
   },
   "licenses": [
     {
