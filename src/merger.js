@@ -4,16 +4,22 @@ var path = require('path');
 
 var mergeFunction = function(a, b) {
   if(Array.isArray(a) && Array.isArray(b)) {
+
+    //Do not concat array if this is the same array (lodash 4 merges object with itself by some reason)
+    if (a === b) {
+      return a;
+    }
+
     return a.concat(b);
   }
   if(Array.isArray(a) && !Array.isArray(b)) {
     return a.map(function(item) {
-      return mergeWith({}, {x:item}, {x:b}, mergeFunction).x;
+      return mergeWith({x:item}, {x:b}, mergeFunction).x;
     });
   }
   if(Array.isArray(b) && !Array.isArray(a)) {
     return b.map(function(item) {
-      return mergeWith({}, {x:a}, {x:item}, mergeFunction).x;
+      return mergeWith({x:a}, {x:item}, mergeFunction).x;
     });
   }
 };
@@ -51,7 +57,9 @@ var mergeWebpackConfig = function() {
    * Add merge function to the end of the configs
    * list
    */
-  var options = mergeWith.apply(null, mergeConfigsList.concat(mergeFunction)).x;
+  mergeConfigsList.push(mergeFunction);
+
+  var options = mergeWith.apply(null, mergeConfigsList).x;
 
   [].concat(options).forEach(function(options) {
     options.context = path.resolve(process.cwd(), options.context);

@@ -42,6 +42,19 @@ describe('mergerSpec', function() {
       .toEqual(['foo', 'bar']);
   });
 
+  it('should correct merge arrays sub property', function() {
+    firstConfig.prop = {
+      list: ['foo']
+    };
+
+    secondConfig.prop = {
+      list: ['bar']
+    };
+
+    expect(merger(firstConfig, secondConfig).prop.list)
+      .toEqual(['foo', 'bar']);
+  });
+
   it('should correct merge object property', function() {
     firstConfig.stats = {};
     firstConfig.stats.prop1 = 'foo';
