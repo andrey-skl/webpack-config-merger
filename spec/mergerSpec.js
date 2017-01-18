@@ -11,10 +11,7 @@ describe('mergerSpec', function() {
       context: any(String),
       output: {
         path: any(String)
-      },
-      progress: true,
-      stats: {},
-      failOnError: true
+      }
     };
 
     firstConfig = {};

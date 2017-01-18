@@ -34,10 +34,7 @@ var mergeWebpackConfig = function() {
     context: ".",
     output: {
       path: "."
-    },
-    progress: true,
-    stats: {},
-    failOnError: true
+    }
   };
   var configsList = Array.prototype.slice.call(arguments);
 
